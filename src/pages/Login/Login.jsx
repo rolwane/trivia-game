@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveToken } from '../../services/fetchApi';
+import { actionSaveToken } from '../../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -19,12 +23,19 @@ class Login extends Component {
     return name.length > 0 && gravatarEmail.length > 0;
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { dispatchSaveToken } = this.props;
+    saveToken();
+    dispatchSaveToken();
+  }
+
   render() {
     const { name, gravatarEmail } = this.state;
 
     return (
 
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <input
           type="text"
           name="name"
@@ -56,4 +67,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSaveToken: () => dispatch(actionSaveToken()),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  dispatchSaveToken: PropTypes.func,
+}.isrequired;
