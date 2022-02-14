@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../component/Header/Header';
 
 class Home extends Component {
   render() {
     return (
-      <h2>Página Inicial</h2>
+      <>
+        <h2>Página Inicial</h2>
+        <Header />
+      </>
     );
   }
 }
