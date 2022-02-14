@@ -3,6 +3,8 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 // imported components
 import Login from './pages/Login/Login';
+import Home from './pages/Home/Home';
+import Settings from './pages/Settings/Settings';
 
 import './App.css';
 
@@ -11,6 +13,8 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/home" component={ Home } />
+        <Route path="/settings" component={ Settings } />
       </Switch>
     </BrowserRouter>
   );
