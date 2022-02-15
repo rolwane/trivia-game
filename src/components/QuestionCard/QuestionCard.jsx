@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import shuffler from '../../helpers/shuffler';
+import './style.css';
 
 class QuestionCard extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showColor: false,
+    };
+  }
+
+  handleClick = () => {
+    this.setState({
+      showColor: true,
+    });
+  }
+
   render() {
+    const { showColor } = this.state;
     const { data = {} } = this.props;
     const {
       category,
@@ -25,6 +41,8 @@ class QuestionCard extends Component {
                 <button
                   type="button"
                   data-testid="correct-answer"
+                  data-color={ showColor && 'green' }
+                  onClick={ this.handleClick }
                   key={ answer }
                 >
                   {answer}
@@ -35,6 +53,8 @@ class QuestionCard extends Component {
               <button
                 type="button"
                 data-testid={ `wrong-answer-${index}` }
+                data-color={ showColor && 'red' }
+                onClick={ this.handleClick }
                 key={ answer }
               >
                 {answer}
