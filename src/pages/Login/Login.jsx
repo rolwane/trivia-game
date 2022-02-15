@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { saveToken } from '../../services/fetchApi';
-import { actionSaveToken } from '../../redux/actions';
+import { actionLogin, actionSaveToken } from '../../redux/actions';
 
 // imported components
 import ButtonSettings from '../../components/ButtonSettings/ButtonSettings';
@@ -29,9 +29,10 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { dispatchSaveToken, history } = this.props;
+    const { dispatchSaveToken, history, dispatchLoginInfo } = this.props;
     saveToken();
     dispatchSaveToken();
+    dispatchLoginInfo(this.state);
     history.push('/home');
   }
 
@@ -76,6 +77,7 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSaveToken: () => dispatch(actionSaveToken()),
+  dispatchLoginInfo: (payload) => dispatch(actionLogin(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
@@ -83,4 +85,5 @@ export default connect(null, mapDispatchToProps)(Login);
 Login.propTypes = {
   dispatchSaveToken: PropTypes.func,
   history: PropTypes.string,
-}.isrequired;
+  dispatchLoginInfo: PropTypes.func,
+}.isRequired;

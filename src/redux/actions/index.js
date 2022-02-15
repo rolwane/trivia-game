@@ -1,5 +1,5 @@
 import { fetchToken } from '../../services/fetchApi';
-import { SAVE_TOKEN } from './types';
+import { SAVE_TOKEN, GET_LOGIN } from './types';
 
 export const actionSaveToken = () => async (dispatch) => {
   const token = await fetchToken();
@@ -9,4 +9,7 @@ export const actionSaveToken = () => async (dispatch) => {
   });
 };
 
-export const actionLogin = () => ({});
+export const actionLogin = (payload) => ({
+  type: GET_LOGIN,
+  payload,
+});
