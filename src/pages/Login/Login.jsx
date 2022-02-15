@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { saveToken } from '../../services/fetchApi';
 import { actionSaveToken } from '../../redux/actions';
-import ButtonSettings from '../../component/ButtonSettings/ButtonSettings';
+
+// imported components
+import ButtonSettings from '../../components/ButtonSettings/ButtonSettings';
 
 class Login extends Component {
   constructor() {
