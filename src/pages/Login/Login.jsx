@@ -30,10 +30,11 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { dispatchSaveToken, history, dispatchLoginInfo } = this.props;
-    saveToken();
-    dispatchSaveToken();
-    dispatchLoginInfo(this.state);
-    history.push('/home');
+    saveToken().then(() => {
+      dispatchSaveToken();
+      dispatchLoginInfo(this.state);
+      history.push('/home');
+    });
   }
 
   render() {
