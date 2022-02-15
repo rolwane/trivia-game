@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../component/Header/Header';
+
+// imported components
+import Header from '../../components/Header/Header';
 
 class Home extends Component {
   render() {
