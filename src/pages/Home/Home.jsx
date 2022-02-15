@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 // imported components
 import Header from '../../components/Header/Header';
+import Questions from '../../components/Questions/Questions';
 
 class Home extends Component {
   render() {
     return (
       <>
-        <h2>Página Inicial</h2>
         <Header />
+        <Questions />
       </>
     );
   }

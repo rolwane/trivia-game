@@ -12,11 +12,9 @@ export const fetchQuestions = async (token) => {
   return data;
 };
 
-export const saveToken = () => {
-  fetchToken().then((response) => {
-    localStorage.setItem('token', response);
-  });
-};
+export const saveToken = () => fetchToken().then((response) => {
+  localStorage.setItem('token', response);
+});
 
 export const validateToken = async () => {
   const token = localStorage.getItem('token');
