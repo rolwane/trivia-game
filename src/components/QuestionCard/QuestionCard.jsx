@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import shuffler from '../../helpers/shuffler';
 import './style.css';
+import { TIMER_NUMBER } from '../../helpers/constants';
 
 class QuestionCard extends Component {
   constructor() {
@@ -9,7 +10,24 @@ class QuestionCard extends Component {
 
     this.state = {
       showColor: false,
+      timer: 30,
     };
+  }
+
+  componentDidMount() {
+    this.handleTimer();
+  }
+
+  handleTimer = () => {
+    const interval = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer > 0 ? prevState.timer - 1 : prevState.timer,
+      }));
+      const { timer } = this.state;
+      if (timer === 0) {
+        clearInterval(interval);
+      }
+    }, TIMER_NUMBER);
   }
 
   handleClick = () => {
@@ -29,11 +47,12 @@ class QuestionCard extends Component {
     } = data;
 
     const shuffleArray = shuffler([...incorrectAnswers, correctAnswer]);
-
+    const { timer } = this.state;
     return (
       <section>
         <p data-testid="question-category">{category}</p>
         <h3 data-testid="question-text">{question}</h3>
+        <span>{timer}</span>
         <div data-testid="answer-options">
           {shuffleArray.map((answer, index) => {
             if (answer === correctAnswer) {
@@ -44,6 +63,7 @@ class QuestionCard extends Component {
                   data-color={ showColor && 'green' }
                   onClick={ this.handleClick }
                   key={ answer }
+                  disabled={ timer <= 0 }
                 >
                   {answer}
 
@@ -56,13 +76,13 @@ class QuestionCard extends Component {
                 data-color={ showColor && 'red' }
                 onClick={ this.handleClick }
                 key={ answer }
+                disabled={ timer <= 0 }
               >
                 {answer}
 
               </button>);
           })}
         </div>
-
       </section>
     );
   }
