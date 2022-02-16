@@ -19,10 +19,14 @@ class QuestionCard extends Component {
   }
 
   handleTimer = () => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       this.setState((prevState) => ({
         timer: prevState.timer > 0 ? prevState.timer - 1 : prevState.timer,
       }));
+      const { timer } = this.state;
+      if (timer === 0) {
+        clearInterval(interval);
+      }
     }, TIMER_NUMBER);
   }
 
