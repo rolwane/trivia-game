@@ -1,4 +1,4 @@
-import { GET_LOGIN } from '../actions/types';
+import { GET_LOGIN, SAVE_SCORE } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '',
@@ -14,6 +14,12 @@ const player = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       name: payload.name,
       gravatarEmail: payload.gravatarEmail,
+    };
+
+  case SAVE_SCORE:
+    return {
+      ...state,
+      score: payload + state.score,
     };
 
   default:

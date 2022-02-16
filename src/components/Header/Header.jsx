@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
-    const { name, gravatarEmail } = this.props;
+    const { name, gravatarEmail, score } = this.props;
     return (
       <header>
         <img
@@ -14,15 +14,16 @@ class Header extends Component {
           data-testid="header-profile-picture"
         />
         <h2 data-testid="header-player-name">{ name }</h2>
-        <span data-testid="header-score">0</span>
+        <span data-testid="header-score">{score}</span>
       </header>
     );
   }
 }
 
-const mapStateToProps = ({ player: { name, gravatarEmail } }) => ({
+const mapStateToProps = ({ player: { name, gravatarEmail, score } }) => ({
   name,
   gravatarEmail,
+  score,
 });
 
 export default connect(mapStateToProps)(Header);
