@@ -6,3 +6,4 @@ export const LEVEL_MEDIUM = 2;
 export const LEVEL_EASY = 1;
 export const SCORE_BASE = 10;
 export const LAST_QUESTION = 4;
+export const ASSERTIONS = 3;
