@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { fetchQuestions, saveToken } from '../../services/fetchApi';
-import { CODE_ERROR } from '../../helpers/constants';
-
+import { CODE_ERROR, LAST_QUESTION } from '../../helpers/constants';
 import QuestionCard from '../QuestionCard/QuestionCard';
 
 class Questions extends React.Component {
@@ -37,9 +37,15 @@ class Questions extends React.Component {
   }
 
   handleClick = () => {
-    this.setState((prevState) => ({
-      currentQuestion: prevState.currentQuestion + 1,
-    }));
+    const { history } = this.props;
+    const { currentQuestion } = this.state;
+    if (currentQuestion === LAST_QUESTION) {
+      history.push('/feedback');
+    } else {
+      this.setState((prevState) => ({
+        currentQuestion: prevState.currentQuestion + 1,
+      }));
+    }
   }
 
   render() {
@@ -54,5 +60,9 @@ class Questions extends React.Component {
     );
   }
 }
+
+Questions.propTypes = {
+  history: PropTypes.object,
+}.isRequired;
 
 export default Questions;

@@ -7,10 +7,11 @@ import Questions from '../../components/Questions/Questions';
 
 class Home extends Component {
   render() {
+    const { history } = this.props;
     return (
       <>
         <Header />
-        <Questions />
+        <Questions history={ history } />
       </>
     );
   }
