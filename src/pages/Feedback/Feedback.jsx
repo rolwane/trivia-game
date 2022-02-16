@@ -30,3 +30,5 @@ export default connect(mapStateToProps)(Feedback);
 Feedback.propTypes = {
   assertions: propTypes.string,
 }.isRequired;
+
+// requisito 13
