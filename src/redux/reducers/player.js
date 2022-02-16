@@ -1,8 +1,8 @@
-import { GET_LOGIN, SAVE_SCORE } from '../actions/types';
+import { GET_LOGIN, SAVE_ASSERTIONS, SAVE_SCORE } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -20,6 +20,12 @@ const player = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       score: payload + state.score,
+    };
+
+  case SAVE_ASSERTIONS:
+    return {
+      ...state,
+      assertions: state.assertions + 1,
     };
 
   default:

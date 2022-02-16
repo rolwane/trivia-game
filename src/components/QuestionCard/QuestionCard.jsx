@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { actionSaveScore } from '../../redux/actions';
+import { actionSaveAssertions, actionSaveScore } from '../../redux/actions';
 
 import shuffler from '../../helpers/shuffler';
 import {
@@ -68,10 +68,15 @@ class QuestionCard extends Component {
 
     if (clickedButton === 'correct-answer') {
       const { timer } = this.state;
-      const { data: { difficulty }, dispatchSaveScore } = this.props;
+      const {
+        data: { difficulty },
+        dispatchSaveScore,
+        dispatchSaveAssertions,
+      } = this.props;
 
       const score = SCORE_BASE + (timer * this.scorePerLevel(difficulty));
       dispatchSaveScore(score);
+      dispatchSaveAssertions();
     }
   }
 
@@ -140,6 +145,7 @@ class QuestionCard extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSaveScore: (score) => dispatch(actionSaveScore(score)),
+  dispatchSaveAssertions: () => dispatch(actionSaveAssertions()),
 });
 
 export default connect(null, mapDispatchToProps)(QuestionCard);
