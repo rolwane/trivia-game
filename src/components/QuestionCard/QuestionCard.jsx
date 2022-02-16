@@ -21,6 +21,7 @@ class QuestionCard extends Component {
       showColor: false,
       shuffleAnswers: [],
       timer: 30,
+      isButtonVisible: false,
     };
   }
 
@@ -45,7 +46,7 @@ class QuestionCard extends Component {
   }
 
   handleClick = ({ target }) => {
-    this.setState({ showColor: true });
+    this.setState({ showColor: true, isButtonVisible: true });
     clearInterval(this.interval);
     this.calculateScore(target);
   }
@@ -80,8 +81,18 @@ class QuestionCard extends Component {
     return LEVEL_EASY;
   }
 
+  handleNextButton = () => {
+    const { nextQuestions } = this.props;
+    nextQuestions();
+    this.setState({
+      showColor: false,
+      isButtonVisible: false,
+      timer: 30,
+    }, this.handleTimer);
+  };
+
   render() {
-    const { showColor, shuffleAnswers, timer } = this.state;
+    const { showColor, shuffleAnswers, timer, isButtonVisible } = this.state;
     const { data: {
       category,
       question,
@@ -113,6 +124,15 @@ class QuestionCard extends Component {
             ))
           }
         </div>
+        {isButtonVisible && (
+          <button
+            data-testid="btn-next"
+            type="button"
+            onClick={ this.handleNextButton }
+          >
+            Next
+          </button>
+        )}
       </section>
     );
   }

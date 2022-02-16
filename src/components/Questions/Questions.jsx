@@ -9,6 +9,7 @@ class Questions extends React.Component {
     super();
     this.state = {
       questions: [],
+      currentQuestion: 0,
     };
   }
 
@@ -42,10 +43,13 @@ class Questions extends React.Component {
   }
 
   render() {
-    const { questions } = this.state;
+    const { questions, currentQuestion } = this.state;
     return (
       <div>
-        <QuestionCard data={ questions[0] || {} } />
+        <QuestionCard
+          nextQuestions={ this.handleClick }
+          data={ questions[currentQuestion] || {} }
+        />
       </div>
     );
   }
