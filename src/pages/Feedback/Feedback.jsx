@@ -6,7 +6,7 @@ import { ASSERTIONS } from '../../helpers/constants';
 
 class Feedback extends Component {
   render() {
-    const { assertions, score } = this.props;
+    const { assertions, score, history } = this.props;
     return (
       <>
         <Header />
@@ -17,7 +17,13 @@ class Feedback extends Component {
             assertions >= ASSERTIONS ? 'Well Done!' : 'Could be better...'
           }
         </p>
-
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Play Again
+        </button>
       </>
     );
   }
