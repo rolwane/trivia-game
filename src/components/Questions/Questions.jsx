@@ -35,12 +35,17 @@ class Questions extends React.Component {
     return response;
   }
 
+  handleClick = () => {
+    this.setState((prevState) => ({
+      currentQuestion: prevState.currentQuestion + 1,
+    }));
+  }
+
   render() {
     const { questions } = this.state;
     return (
       <div>
-        Oi questions
-        <QuestionCard data={ questions[0] } />
+        <QuestionCard data={ questions[0] || {} } />
       </div>
     );
   }

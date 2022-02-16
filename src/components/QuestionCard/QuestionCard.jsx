@@ -9,58 +9,64 @@ class QuestionCard extends Component {
 
     this.state = {
       showColor: false,
+      shuffleAnswers: [],
     };
   }
 
+  componentDidUpdate(prevProps) {
+    this.loadAnswers(prevProps);
+  }
+
   handleClick = () => {
-    this.setState({
-      showColor: true,
-    });
+    this.setState({ showColor: true });
+  }
+
+  loadAnswers = (prevProps) => {
+    const { data: {
+      question,
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers = [],
+    } } = this.props;
+
+    if (question !== prevProps.data.question) {
+      this.setState({ shuffleAnswers: shuffler([...incorrectAnswers, correctAnswer]) });
+    }
   }
 
   render() {
-    const { showColor } = this.state;
-    const { data = {} } = this.props;
-    const {
+    const { showColor, shuffleAnswers } = this.state;
+
+    const { data: {
       category,
       question,
-      incorrect_answers: incorrectAnswers = [],
       correct_answer: correctAnswer,
-    } = data;
-
-    const shuffleArray = shuffler([...incorrectAnswers, correctAnswer]);
+    } } = this.props;
 
     return (
       <section>
         <p data-testid="question-category">{category}</p>
         <h3 data-testid="question-text">{question}</h3>
-        <div data-testid="answer-options">
-          {shuffleArray.map((answer, index) => {
-            if (answer === correctAnswer) {
-              return (
-                <button
-                  type="button"
-                  data-testid="correct-answer"
-                  data-color={ showColor && 'green' }
-                  onClick={ this.handleClick }
-                  key={ answer }
-                >
-                  {answer}
 
-                </button>);
-            }
-            return (
+        <div data-testid="answer-options">
+          {
+            shuffleAnswers.map((answer, index) => (
+
               <button
+                key={ index }
                 type="button"
-                data-testid={ `wrong-answer-${index}` }
-                data-color={ showColor && 'red' }
                 onClick={ this.handleClick }
-                key={ answer }
+                data-color={ showColor && (answer === correctAnswer ? 'green' : 'red') }
+                data-testid={
+                  answer === correctAnswer
+                    ? 'correct-answer'
+                    : `wrong-answer-${index}`
+                }
               >
                 {answer}
+              </button>
 
-              </button>);
-          })}
+            ))
+          }
         </div>
 
       </section>
