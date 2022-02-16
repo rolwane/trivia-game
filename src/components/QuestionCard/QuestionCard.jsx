@@ -7,17 +7,21 @@ import { TIMER_NUMBER } from '../../helpers/constants';
 class QuestionCard extends Component {
   constructor() {
     super();
-
     this.state = {
       showColor: false,
+      shuffleAnswers: [],
       timer: 30,
     };
   }
-
+  
   componentDidMount() {
     this.handleTimer();
   }
-
+  
+  componentDidUpdate(prevProps) {
+    this.loadAnswers(prevProps);
+  }
+  
   handleTimer = () => {
     const interval = setInterval(() => {
       this.setState((prevState) => ({
@@ -29,59 +33,55 @@ class QuestionCard extends Component {
       }
     }, TIMER_NUMBER);
   }
-
+  
   handleClick = () => {
-    this.setState({
-      showColor: true,
-    });
+    this.setState({ showColor: true });
   }
-
+  
+  loadAnswers = (prevProps) => {
+    const { data: {
+      question,
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers = [],
+    } } = this.props;
+    
+    if (question !== prevProps.data.question) {
+      this.setState({ shuffleAnswers: shuffler([...incorrectAnswers, correctAnswer]) });
+    }
+  }
+  
   render() {
-    const { showColor } = this.state;
-    const { data = {} } = this.props;
-    const {
+    const { showColor, shuffleAnswers, timer } = this.state;
+    const { data: {
       category,
       question,
-      incorrect_answers: incorrectAnswers = [],
       correct_answer: correctAnswer,
-    } = data;
-
-    const shuffleArray = shuffler([...incorrectAnswers, correctAnswer]);
-    const { timer } = this.state;
+    } } = this.props;
+    
     return (
       <section>
         <p data-testid="question-category">{category}</p>
         <h3 data-testid="question-text">{question}</h3>
         <span>{timer}</span>
         <div data-testid="answer-options">
-          {shuffleArray.map((answer, index) => {
-            if (answer === correctAnswer) {
-              return (
-                <button
-                  type="button"
-                  data-testid="correct-answer"
-                  data-color={ showColor && 'green' }
-                  onClick={ this.handleClick }
-                  key={ answer }
-                  disabled={ timer <= 0 }
-                >
-                  {answer}
-
-                </button>);
-            }
-            return (
+          {
+            shuffleAnswers.map((answer, index) => (
               <button
+                key={ index }
                 type="button"
-                data-testid={ `wrong-answer-${index}` }
-                data-color={ showColor && 'red' }
-                onClick={ this.handleClick }
-                key={ answer }
                 disabled={ timer <= 0 }
+                onClick={ this.handleClick }
+                data-color={ showColor && (answer === correctAnswer ? 'green' : 'red') }
+                data-testid={
+                  answer === correctAnswer
+                    ? 'correct-answer'
+                    : `wrong-answer-${index}`
+                }
               >
                 {answer}
-
-              </button>);
-          })}
+              </button>
+            ))
+          }
         </div>
       </section>
     );
