@@ -13,15 +13,15 @@ class QuestionCard extends Component {
       timer: 30,
     };
   }
-  
+
   componentDidMount() {
     this.handleTimer();
   }
-  
+
   componentDidUpdate(prevProps) {
     this.loadAnswers(prevProps);
   }
-  
+
   handleTimer = () => {
     const interval = setInterval(() => {
       this.setState((prevState) => ({
@@ -33,23 +33,23 @@ class QuestionCard extends Component {
       }
     }, TIMER_NUMBER);
   }
-  
+
   handleClick = () => {
     this.setState({ showColor: true });
   }
-  
+
   loadAnswers = (prevProps) => {
     const { data: {
       question,
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers = [],
     } } = this.props;
-    
+
     if (question !== prevProps.data.question) {
       this.setState({ shuffleAnswers: shuffler([...incorrectAnswers, correctAnswer]) });
     }
   }
-  
+
   render() {
     const { showColor, shuffleAnswers, timer } = this.state;
     const { data: {
@@ -57,7 +57,7 @@ class QuestionCard extends Component {
       question,
       correct_answer: correctAnswer,
     } } = this.props;
-    
+
     return (
       <section>
         <p data-testid="question-category">{category}</p>
