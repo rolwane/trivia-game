@@ -3,11 +3,21 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import { ASSERTIONS } from '../../helpers/constants';
+/* [
+  { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar }
+] */
 
 // imported components
 import Header from '../../components/Header/Header';
+import { actionReset } from '../../redux/actions';
 
 class Feedback extends Component {
+  playAgain = () => {
+    const { history, dispatchReset } = this.props;
+    history.push('/');
+    dispatchReset();
+  }
+
   render() {
     const { assertions, score, history } = this.props;
     return (
@@ -15,7 +25,7 @@ class Feedback extends Component {
         <Header />
         <p data-testid="feedback-total-score">{score}</p>
         <p data-testid="feedback-total-question">{assertions}</p>
-        <p data-testId="feedback-text">
+        <p data-testid="feedback-text">
           {
             assertions >= ASSERTIONS ? 'Well Done!' : 'Could be better...'
           }
@@ -23,7 +33,7 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
+          onClick={ this.playAgain }
         >
           Play Again
         </button>
@@ -44,8 +54,11 @@ const mapStateToProps = ({ player: { assertions, score } }) => ({
   assertions,
   score,
 });
+const mapDispatchToProps = (dispatch) => ({
+  dispatchReset: () => dispatch(actionReset()),
+});
 
-export default connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
 
 Feedback.propTypes = {
   assertions: propTypes.string,

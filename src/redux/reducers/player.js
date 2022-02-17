@@ -1,4 +1,4 @@
-import { GET_LOGIN, SAVE_ASSERTIONS, SAVE_SCORE } from '../actions/types';
+import { GET_LOGIN, RESET, SAVE_ASSERTIONS, SAVE_SCORE } from '../actions/types';
 
 const INITIAL_STATE = {
   name: '',
@@ -27,6 +27,9 @@ const player = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       assertions: state.assertions + 1,
     };
+
+  case RESET:
+    return INITIAL_STATE;
 
   default:
     return state;
