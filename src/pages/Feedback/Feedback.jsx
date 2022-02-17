@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import Header from '../../components/Header/Header';
+
 import { ASSERTIONS } from '../../helpers/constants';
+
+// imported components
+import Header from '../../components/Header/Header';
 
 class Feedback extends Component {
   render() {
@@ -23,6 +26,14 @@ class Feedback extends Component {
           onClick={ () => history.push('/') }
         >
           Play Again
+        </button>
+
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => history.push('/ranking') }
+        >
+          Ranking
         </button>
       </>
     );
