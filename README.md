@@ -31,4 +31,4 @@ Após finalizar você verá uma tela de feedback e pode conferir a tela de ranki
 <br />
 
 ## Deploy ##
-[Acessar aplicação](https://rolwane-recipes-app.vercel.app/)
+[Acessar aplicação](https://trivia-game-pi-swart.vercel.app/)
