@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import { ASSERTIONS } from '../../helpers/constants';
-/* [
-  { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar }
-] */
+
+import './Feedback.css';
 
 // imported components
 import Header from '../../components/Header/Header';
@@ -23,28 +22,42 @@ class Feedback extends Component {
     return (
       <>
         <Header />
-        <p data-testid="feedback-total-score">{score}</p>
-        <p data-testid="feedback-total-question">{assertions}</p>
-        <p data-testid="feedback-text">
+
+        <p data-testid="feedback-text" className="feedback-text">
           {
             assertions >= ASSERTIONS ? 'Well Done!' : 'Could be better...'
           }
         </p>
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ this.playAgain }
-        >
-          Play Again
-        </button>
 
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ranking
-        </button>
+        <section className="feedback-container">
+          <p data-testid="feedback-total-score" className="feedback-points">
+            Total score:
+            <span className="score">{score}</span>
+          </p>
+          <p data-testid="feedback-total-question" className="feedback-points">
+            Total assertions:
+            <span className="score">{assertions}</span>
+          </p>
+
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.playAgain }
+            className="btn-next"
+            style={ { background: '#05A196', color: 'white' } }
+          >
+            Play Again
+          </button>
+
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            onClick={ () => history.push('/ranking') }
+            className="btn-next"
+          >
+            Ranking
+          </button>
+        </section>
       </>
     );
   }

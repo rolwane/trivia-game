@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import { saveToken } from '../../services/fetchApi';
 import { actionLogin, actionSaveToken } from '../../redux/actions';
 
-// imported components
-import ButtonSettings from '../../components/ButtonSettings/ButtonSettings';
+import './Login.css';
+
+import logo from '../../images/logo.png';
 
 class Login extends Component {
   constructor() {
@@ -39,10 +40,12 @@ class Login extends Component {
 
   render() {
     const { name, gravatarEmail } = this.state;
-    const { history } = this.props;
 
     return (
-      <>
+      <section className="login-section">
+
+        <img src={ logo } alt="logo" className="logo" />
+
         <form onSubmit={ this.handleSubmit }>
           <input
             type="text"
@@ -66,12 +69,13 @@ class Login extends Component {
             type="submit"
             data-testid="btn-play"
             disabled={ !this.validadeButton() }
+            className="btn-submit"
           >
             Play
           </button>
         </form>
-        <ButtonSettings history={ history } />
-      </>
+
+      </section>
     );
   }
 }

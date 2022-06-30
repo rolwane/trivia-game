@@ -6,6 +6,8 @@ import { fetchQuestions, saveToken } from '../../services/fetchApi';
 import { CODE_ERROR, LAST_QUESTION } from '../../helpers/constants';
 import QuestionCard from '../QuestionCard/QuestionCard';
 
+import './Questions.css';
+
 class Questions extends React.Component {
   constructor() {
     super();
@@ -65,7 +67,7 @@ class Questions extends React.Component {
   render() {
     const { questions, currentQuestion } = this.state;
     return (
-      <div>
+      <div className="questions-container">
         <QuestionCard
           nextQuestions={ this.handleClick }
           data={ questions[currentQuestion] || {} }

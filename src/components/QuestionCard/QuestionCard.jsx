@@ -12,7 +12,9 @@ import {
   SCORE_BASE,
 } from '../../helpers/constants';
 
-import './style.css';
+import './QuestionCard.css';
+
+import character from '../../images/silvio.png';
 
 class QuestionCard extends Component {
   constructor() {
@@ -105,39 +107,53 @@ class QuestionCard extends Component {
     } } = this.props;
 
     return (
-      <section>
-        <p data-testid="question-category">{category}</p>
-        <h3 data-testid="question-text">{question}</h3>
-        <span>{timer}</span>
-        <div data-testid="answer-options">
-          {
-            shuffleAnswers.map((answer, index) => (
-              <button
-                key={ index }
-                type="button"
-                disabled={ timer <= 0 }
-                onClick={ this.handleClick }
-                data-color={ showColor && (answer === correctAnswer ? 'green' : 'red') }
-                data-testid={
-                  answer === correctAnswer
-                    ? 'correct-answer'
-                    : `wrong-answer-${index}`
-                }
-              >
-                {answer}
-              </button>
-            ))
-          }
-        </div>
-        {isButtonVisible && (
-          <button
-            data-testid="btn-next"
-            type="button"
-            onClick={ this.handleNextButton }
-          >
-            Next
-          </button>
-        )}
+      <section className="question-card-container">
+
+        <section className="question-content col-5">
+          <p data-testid="question-category" className="question-category">{category}</p>
+
+          <div className="display-question">
+            <h3 data-testid="question-text">{question}</h3>
+            <span className="timer">{timer}</span>
+          </div>
+
+          <div data-testid="answer-options">
+            {
+              shuffleAnswers.map((answer, index) => (
+                <button
+                  key={ index }
+                  type="button"
+                  disabled={ timer <= 0 }
+                  onClick={ this.handleClick }
+                  data-color={ showColor && (answer === correctAnswer ? 'green' : 'red') }
+                  className="option"
+                  data-testid={
+                    answer === correctAnswer
+                      ? 'correct-answer'
+                      : `wrong-answer-${index}`
+                  }
+                >
+                  {answer}
+                </button>
+              ))
+            }
+          </div>
+          {isButtonVisible && (
+            <button
+              data-testid="btn-next"
+              type="button"
+              onClick={ this.handleNextButton }
+              className="btn-next"
+            >
+              Next
+            </button>
+          )}
+        </section>
+
+        <section className="col-5">
+          <img src={ character } alt="character" className="character-img" />
+        </section>
+
       </section>
     );
   }

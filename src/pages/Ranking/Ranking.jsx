@@ -3,6 +3,8 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actionReset } from '../../redux/actions';
 
+import './Ranking.css';
+
 class Ranking extends Component {
   constructor() {
     super();
@@ -31,24 +33,32 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     const orderedRanking = ranking.sort((a, b) => b.score - a.score);
+
     return (
-      <>
-        <h1 data-testid="ranking-title">Ranking page</h1>
+      <div className="ranking-container">
+
+        <h1 data-testid="ranking-title" className="title">Ranking page</h1>
+
         {orderedRanking.map((rank, index) => (
-          <div key={ index }>
-            <img src={ rank.picture } alt="profile" />
-            <p data-testid={ `player-name-${index}` }>{rank.name}</p>
-            <p data-testid={ `player-score-${index}` }>{rank.score}</p>
+          <div key={ index } className="ranking-card">
+
+            <div className="player-content">
+              <img src={ rank.picture } alt="profile" />
+              <p data-testid={ `player-name-${index}` }>{rank.name}</p>
+            </div>
+
+            <p data-testid={ `player-score-${index}` } className="score">{rank.score}</p>
           </div>
         ))}
         <button
           type="button"
           data-testid="btn-go-home"
           onClick={ this.playAgain }
+          className="btn-next"
         >
           PlayAgain
         </button>
-      </>
+      </div>
     );
   }
 }
